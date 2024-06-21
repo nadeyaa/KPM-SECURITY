@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+        }
+        .sidebar {
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            background-color: #007BFF;
+            height: 100vh;
+            overflow: auto;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .sidebar a.active {
+            background-color: #0056b3;
+            color: white;
+        }
+        .sidebar a:hover:not(.active) {
+            background-color: #004085;
+            color: white;
+        }
+        .main-content {
+            margin-left: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: calc(100% - 200px);
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .profile-container {
+            background-color: #007BFF;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+            color: white;
+        }
+        .profile-container img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid white;
+            margin-bottom: 15px;
+        }
+        .profile-container h1 {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+        .profile-container p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        .profile-container a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #007BFF;
+            background-color: white;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .profile-container a:hover {
+            background-color: #cce5ff;
+        }
+        #fileInput {
+            display: none;
+        }
+        @media screen and (max-width: 700px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .sidebar a {float: left;}
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                flex-direction: column;
+            }
+        }
+        @media screen and (max-width: 400px) {
+            .sidebar a {
+                text-align: center;
+                float: none;
+            }
+        }    
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a class="active" href="homeadmin.html">Home</a>
+        <a href="profileadmin.html">Profile</a>
+        <a href="admin_schedule.html">Schedule</a>
+        <a href="visitor.html">Visitor</a>
+    </div>
+    <div class="main-content">
+        <div class="profile-container">
+            <img id="profileImage" src="{% static 'images/farah1.jpg' %}" alt="Profile Image">
+            <h1>Farah Nadia Bt Hasni</h1>
+            <p>Email: farahnadiahasni@gmail.com</p>
+            <p>Location: Seremban, N9</p>
+            <form method="post" enctype="multipart/form-data">
+                <a href="#" onclick="document.getElementById('fileInput').click(); return false;">Upload Photo</a>
+                <input type="file" id="fileInput" name="profile_image" accept="image/*" onchange="previewImage(event)">
+                <button type="submit" style="display: none;">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('profileImage');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</body>
+</html>

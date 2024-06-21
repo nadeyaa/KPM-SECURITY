@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Guard</title>
+<style>
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+  background-color: #ffffff;
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #ff4c4c;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.sidebar a.active {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #b71c1c;
+  color: white;
+}
+
+div.content {
+  margin-left: 200px;
+  padding: 16px;
+  height: 1000px;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.organization-chart {
+  border: 2px dashed #d32f2f;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.organization-chart:hover {
+  background-color: #d61313;
+}
+
+.organization-chart img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+h2 {
+  color: #ff4c4c;
+  text-align: center;
+}
+
+h3 {
+  color: #ffffff;
+}
+
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <a class="active" href="homesecurity.html">Home</a>
+  <a href="profileguard.html">Profile</a>
+  <a href="security_guard_schedule.html">Schedule</a>
+  <a href="visitor.html">Visitor</a>
+</div>
+
+<div class="content">
+  <h2>KPM SECURITY MANAGEMENT</h2>
+  <div class="organization-chart">
+    <h3>ORGANIZATION CHART</h3>
+    <img src="C:\farah sem 6\CSC2764 PROJECT DESIGN,IMPLEMANTATION\final assignment\Kpm_Security\guard\templates\static\organisation.png" alt="Organization Chart">
+  </div>
+</div>
+
+</body>
+</html>

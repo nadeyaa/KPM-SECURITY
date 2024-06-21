@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Schedule</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+        }
+        .sidebar {
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            background-color: #1E90FF;
+            height: 100vh;
+            overflow: auto;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .sidebar a.active {
+            background-color: #104E8B;
+            color: white;
+        }
+        .sidebar a:hover:not(.active) {
+            background-color: #1C86EE;
+            color: white;
+        }
+        .main-content {
+            margin-left: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: calc(100% - 200px);
+            height: 100vh;
+            background-color: #f9f9f9;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .schedule {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .schedule h2 {
+            margin-top: 0;
+        }
+        .schedule table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .schedule table, .schedule th, .schedule td {
+            border: 1px solid #ddd;
+        }
+        .schedule th, .schedule td {
+            padding: 8px;
+            text-align: left;
+        }
+        .schedule th {
+            background-color: #f2f2f2;
+        }
+        .update-form {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+        .update-form h2 {
+            margin-top: 0;
+        }
+        .update-form form {
+            display: flex;
+            flex-direction: column;
+        }
+        .update-form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .update-form input, .update-form select {
+            margin-bottom: 10px;
+            padding: 8px;
+            font-size: 16px;
+        }
+        .update-form button {
+            padding: 10px;
+            background-color: #1E90FF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .update-form button:hover {
+            background-color: #104E8B;
+        }
+        @media screen and (max-width: 700px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .sidebar a {float: left;}
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                flex-direction: column;
+            }
+        }
+        @media screen and (max-width: 400px) {
+            .sidebar a {
+                text-align: center;
+                float: none;
+            }
+        }    
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a class="active" href="homeadmin.html">Home</a>
+        <a href="profileadmin.html">Profile</a>
+        <a href="admin_schedule.html">Schedule</a>
+        <a href="#visitor">Visitor</a>
+    </div>
+    <div class="main-content">
+        <div class="schedule" id="schedule">
+            <h2>Security Guard Shift Schedule</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Shift</th>
+                        <th>Guard Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="schedule-table-body">
+                    {% for schedule in schedules %}
+                    <tr>
+                        <td>{{ schedule.date }}</td>
+                        <td>{{ schedule.shift }}</td>
+                        <td>{{ schedule.guard_name }}</td>
+                        <td>
+                            {% if user.is_superuser %}
+                            <a href="{% url 'edit_schedule' schedule.id %}">Update</a>
+                            <a href="{% url 'delete_schedule' schedule.id %}">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if user.is_superuser %}
+        <div class="update-form" id="update-form">
+            <h2>Update Schedule</h2>
+            <form method="POST" action="{% url 'add_schedule' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add Shift</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
